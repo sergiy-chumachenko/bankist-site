@@ -20,8 +20,8 @@ const closeModal = function () {
   modal.classList.add('hidden');
   overlay.classList.add('hidden');
 };
-btnsOpenModal.forEach(btn => btn.addEventListener('click', openModal));
 
+btnsOpenModal.forEach(btn => btn.addEventListener('click', openModal));
 btnCloseModal.addEventListener('click', closeModal);
 overlay.addEventListener('click', closeModal);
 
@@ -31,6 +31,7 @@ document.addEventListener('keydown', function (e) {
   }
 });
 
+// Button Scrolling
 btnScrollTo.addEventListener('click', function (e) {
   // Old school way
   // const s1coords = section1.getBoundingClientRect();
@@ -41,4 +42,23 @@ btnScrollTo.addEventListener('click', function (e) {
   // });
 
   section1.scrollIntoView({ behavior: 'smooth' });
+});
+
+// Page Navigation
+// document.querySelectorAll('.nav__link').forEach(function (el) {
+//   el.addEventListener('click', function (e) {
+//     e.preventDefault();
+//     const id = this.getAttribute('href');
+//     document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
+//   });
+// });
+
+// Page Navigation with event delegation
+document.querySelector('.nav__links').addEventListener('click', function (e) {
+  e.preventDefault();
+  if (e.target.classList.contains('nav__link')) {
+    document
+      .querySelector(e.target.getAttribute('href'))
+      .scrollIntoView({ behavior: 'smooth' });
+  }
 });
