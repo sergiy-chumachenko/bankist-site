@@ -16,6 +16,9 @@ const navigation = document.querySelector('.nav');
 const header = document.querySelector('.header');
 const allSections = document.querySelectorAll('.section');
 const imgTargets = document.querySelectorAll('img[data-src]');
+const slides = document.querySelectorAll('.slide');
+const sliderBtnLeft = document.querySelector('.slider__btn--left');
+const sliderBtnRight = document.querySelector('.slider__btn--right');
 
 const openModal = function (e) {
   e.preventDefault();
@@ -172,3 +175,40 @@ const imageObserver = new IntersectionObserver(loadImg, {
 });
 
 imgTargets.forEach(img => imageObserver.observe(img));
+
+// const slider = document.querySelector('.slider');
+// slider.style.transform = 'scale(0.2) translateX(-1000px)';
+// slider.style.overflow = 'visible';
+
+// Slider Component
+let curSlide = 0;
+const maxSlide = slides.length;
+
+const goToSlide = function (slide) {
+  slides.forEach(
+    (s, i) => (s.style.transform = `translateX(${100 * (i - slide)}%)`)
+  );
+};
+
+goToSlide(0);
+
+const previousSlide = function () {
+  if (curSlide === 0) {
+    curSlide = maxSlide - 1;
+  } else {
+    curSlide--;
+  }
+  goToSlide(curSlide);
+};
+
+const nextSlide = function () {
+  if (curSlide === maxSlide - 1) {
+    curSlide = 0;
+  } else {
+    curSlide++;
+  }
+  goToSlide(curSlide);
+};
+
+sliderBtnLeft.addEventListener('click', previousSlide);
+sliderBtnRight.addEventListener('click', nextSlide);
